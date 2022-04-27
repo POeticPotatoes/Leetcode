@@ -1,7 +1,7 @@
 # problem: problems/number-of-provinces
 # Managed to solve the problem first try which is pretty pog
 # Solution uses a disjoint list with updated indices, was efficient but slow.
-# memory: O(n) to store disjoint set, complexity: O(nlog(n))
+# memory: O(n) to store disjoint set, complexity: O(n^2) but with optimisations to reduce redundancy
 
 class Solution:
     sets = None
