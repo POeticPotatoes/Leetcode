@@ -1,6 +1,6 @@
 # Problem: problems/graph-valid-tree
 # I was very frustrated because I felt like my solution wasn't the best, but it's the third solution in Leetcode
-# At least it's really good in speed and memory
+# Finally figured out why! now I'm just tracking the count so there's no final iteration through the array. :D
 
 class Solution:
 
@@ -11,28 +11,24 @@ class Solution:
         if len(edges) != n-1: return False
 
         self.x = list(range(n))
+        count = n
 
         for e in edges:
-            self.corrupt(e[0], e[1])
-            self.corrupt(e[1], e[1])
-        num = edges[len(edges)-1][1]
+            a = self.corrupt(e[1], e[1])
+            b = self.corrupt(e[0], e[1])
+            if b != e[1]: count -= 1
 
-        for e in self.x:
-            if self.find(e) != num: return False
-        return True
+        return count == 1
 
     def corrupt(self, num, u):
-        while self.x[num] != u:
+        if self.x[num] != num:
             n = self.x[num]
+            if n == u: return u
             self.x[num] = u
-            num = n
+            return self.corrupt(n, u)
+        n = self.x[num]
+        if n!= u: self.x[num] = u
+        return n
     
-    def find(self, num):
-        while self.x[num] != num:
-            n = self.x[num]
-            self.x[num] = self.x[n]
-            num = n
-        return self.x[num]
-
     def helloWorld(self):
         return "winner winner"
