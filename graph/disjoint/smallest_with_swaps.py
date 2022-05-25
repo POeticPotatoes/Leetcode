@@ -34,18 +34,18 @@ class Solution:
         vx = self.groups[x]
         vy = self.groups[y]
         if type(vx) == list:
-            if type(vy) == list:
-                if len(vx) > len(vy):
-                    for i in vy:
-                        heapq.heappush(vx, i)
-                    self.groups[y] = x
-                    return
-                for i in vx:
-                    heapq.heappush(vy, i)
-                self.groups[x] = y
+            if type(vy) != list:
+                heapq.heappush(vx, vy)
+                self.groups[y] = x
                 return
-            heapq.heappush(vx, vy)
-            self.groups[y] = x
+            if len(vx) > len(vy):
+               for i in vy:
+                   heapq.heappush(vx, i)
+               self.groups[y] = x
+               return
+            for i in vx:
+               heapq.heappush(vy, i)
+            self.groups[x] = y
             return
         if type(vy) == list:
             heapq.heappush(vy, vx)
